@@ -89,19 +89,19 @@ if (isset($_GET['edit'])) {
 }
 // Generate No Rekam Medis otomatis jika form tambah
 if (!$is_edit) {
-    $year_month = date('Ym'); // Tahun dan bulan, contoh: 202412
+    $year_month = date('Ym');
     $last_rm_query = "SELECT no_rm FROM pasien WHERE no_rm LIKE '$year_month-%' ORDER BY id DESC LIMIT 1";
     $last_rm_result = $conn->query($last_rm_query);
 
     if ($last_rm_result && $last_rm_result->num_rows > 0) {
         $last_rm_row = $last_rm_result->fetch_assoc();
-        $last_rm_number = intval(explode('-', $last_rm_row['no_rm'])[1]); // Ambil angka urut terakhir
+        $last_rm_number = intval(explode('-', $last_rm_row['no_rm'])[1]);
     } else {
-        $last_rm_number = 0; // Jika belum ada pasien pada bulan ini, mulai dari 0
+        $last_rm_number = 0;
     }
 
-    $new_rm_number = $last_rm_number + 1; // Increment angka urut
-    $no_rm = $year_month . '-' . $new_rm_number; // Contoh: 202412-2
+    $new_rm_number = $last_rm_number + 1;
+    $no_rm = $year_month . '-' . $new_rm_number;
 }
 ?>
 
